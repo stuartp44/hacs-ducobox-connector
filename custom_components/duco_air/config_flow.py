@@ -1,5 +1,6 @@
 import voluptuous as vol
 from homeassistant import config_entries
+from homeassistant.components.zeroconf import ZeroconfServiceInfo
 from homeassistant.core import callback
 from .const import DOMAIN
 import requests
@@ -31,6 +32,30 @@ class DucoboxConnectivityBoardConfigFlow(config_entries.ConfigFlow, domain=DOMAI
         return self.async_show_form(
             step_id="user", data_schema=CONFIG_SCHEMA, errors=errors
         )
+
+    async def async_step_zeroconf(self, discovery_info: ZeroconfServiceInfo):
+            """Handle discovery via mDNS."""
+            # Check if the discovered device name follows the "DUCO [08d1f9c46323]" format
+            if not discovery_info.name.startswith("DUCO "):
+                return self.async_abort(reason="not_duco_air_device")
+
+            # Extract information from the mDNS discovery
+            host = discovery_info.host
+            port = discovery_info.port
+            unique_id = discovery_info.name.split(" ")[1].strip("[]")  # Extract ID from name
+
+            # Check if the device has already been configured
+            await self.async_set_unique_id(unique_id)
+            self._abort_if_unique_id_configured()
+
+            # Automatically create the entry from the discovered device
+            return self.async_create_entry(
+                title=f"Duco Air ({host})",
+                data={
+                    "base_url": f"http://{host}:{port}",
+                    "unique_id": unique_id,
+                },
+            )
 
     @staticmethod
     @callback
