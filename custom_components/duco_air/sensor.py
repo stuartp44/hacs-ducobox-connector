@@ -410,9 +410,12 @@ async def async_setup_entry(
     nodes = coordinator.data.get('Nodes', [])
     for node in nodes:
         node_id = node.get('Node')
+        logging.debug(f"Processing node {node_id}")
         node_type = node.get('General', {}).get('Type', {}).get('Val', 'Unknown')
+        logging.debug(f"Node type: {node_type}")
         #node_addr = node.get('General', {}).get('Addr', 'Unknown')
         node_name = f"Ducobox Node {node_id} ({node_type})"
+        logging.debug(f"Node name: {node_name}")
 
         # Create device info for the node
         node_device_id = f"{device_id}_node_{node_id}"
