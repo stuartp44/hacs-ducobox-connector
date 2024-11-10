@@ -42,6 +42,7 @@ class DucoboxConnectivityBoardConfigFlow(config_entries.ConfigFlow, domain=DOMAI
             # Extract information from the mDNS discovery
             host = discovery_info.host
             port = discovery_info.port
+            print(f"Host: {host}, Port: {port}")
             unique_id = discovery_info.name.split(" ")[1].strip("[]")  # Extract ID from name
 
             # Check if the device has already been configured
