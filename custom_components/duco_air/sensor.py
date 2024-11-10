@@ -411,7 +411,7 @@ async def async_setup_entry(
     for node in nodes:
         node_id = node.get('Node')
         node_type = node.get('General', {}).get('Type', {}).get('Val', 'Unknown')
-        node_addr = node.get('General', {}).get('Addr', 'Unknown')
+        #node_addr = node.get('General', {}).get('Addr', 'Unknown')
         node_name = f"Ducobox Node {node_id} ({node_type})"
 
         # Create device info for the node
