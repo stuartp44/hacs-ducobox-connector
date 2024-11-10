@@ -52,7 +52,7 @@ class DucoboxConnectivityBoardConfigFlow(config_entries.ConfigFlow, domain=DOMAI
             return self.async_create_entry(
                 title=f"Duco Air ({host})",
                 data={
-                    "base_url": f"https://{host}",
+                    "base_url": f"http://{host}",
                     "unique_id": unique_id,
                 },
             )
