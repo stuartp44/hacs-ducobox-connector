@@ -5,6 +5,7 @@
   "documentation": "https://github.com/Sikerdebaard/hacs-ducobox-connector",
   "dependencies": [],
   "codeowners": ["@Sikerdebaard"],
+  "integration_type": "device",
   "requirements": ["ducopy>=9"],
   "iot_class": "local_polling",
   "config_flow": true
