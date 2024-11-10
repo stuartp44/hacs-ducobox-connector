@@ -1,5 +1,5 @@
 {
-  "domain": "ducobox_connectivity_board",
+  "domain": "duco_air",
   "name": "Duco Air",
   "version": "1.0.0",
   "documentation": "https://github.com/Sikerdebaard/hacs-ducobox-connector",

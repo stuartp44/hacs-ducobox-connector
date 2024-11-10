@@ -1,4 +1,4 @@
 from datetime import timedelta
 
-DOMAIN = "ducobox_connectivity_board"
+DOMAIN = "duco_air"
 SCAN_INTERVAL = timedelta(seconds=60)
