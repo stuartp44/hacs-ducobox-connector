@@ -387,7 +387,7 @@ async def async_setup_entry(
     device_info = DeviceInfo(
         identifiers={(DOMAIN, device_id)},
         name=device_name,
-        manufacturer="Ducobox",
+        manufacturer="DUCO Ventilation & Sun Control",
         model=box_model,
         sw_version=coordinator.data.get("General", {}).get("Board", {}).get("SwVersionBox", {}).get("Val", "Unknown Version"),
     )
@@ -419,7 +419,7 @@ async def async_setup_entry(
         node_device_info = DeviceInfo(
             identifiers={(DOMAIN, node_device_id)},
             name=node_name,
-            manufacturer="Ducobox",
+            manufacturer="DUCO Ventilation & Sun Control",
             model=node_type,
             via_device=(DOMAIN, device_id),
         )
