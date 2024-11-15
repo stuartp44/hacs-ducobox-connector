@@ -207,6 +207,7 @@ NODE_SENSORS: dict[str, list[DucoboxNodeSensorEntityDescription]] = {
             node_type='BOX',
         ),
     ],
+    
     'UCCO2': [
         DucoboxNodeSensorEntityDescription(
             key='Temp',
