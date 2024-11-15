@@ -1,10 +1,12 @@
 import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.components.zeroconf import ZeroconfServiceInfo
+from homeassistant.data_entry_flow import FlowResult
 from homeassistant.core import callback
 from .const import DOMAIN
 import requests
 import asyncio
+
 
 CONFIG_SCHEMA = vol.Schema({
     vol.Required("base_url"): str
@@ -33,29 +35,50 @@ class DucoboxConnectivityBoardConfigFlow(config_entries.ConfigFlow, domain=DOMAI
             step_id="user", data_schema=CONFIG_SCHEMA, errors=errors
         )
 
-    async def async_step_zeroconf(self, discovery_info: ZeroconfServiceInfo):
-            """Handle discovery via mDNS."""
-            # Check if the discovered device name follows the "DUCO [08d1f9c46323]" format
-            if not discovery_info.name.startswith("DUCO "):
-                return self.async_abort(reason="not_duco_air_device")
+    async def async_step_zeroconf(self, discovery_info: ZeroconfServiceInfo) -> FlowResult:
+        """Handle discovery via mDNS."""
+        if not discovery_info.name.startswith("DUCO "):
+            return self.async_abort(reason="not_duco_air_device")
 
-            # Extract information from the mDNS discovery
-            host = discovery_info.host
-            port = discovery_info.port
-            unique_id = discovery_info.name.split(" ")[1].strip("[]")  # Extract ID from name
+        # Extract information from mDNS discovery
+        host = discovery_info.host
+        unique_id = discovery_info.name.split(" ")[1].strip("[]")
 
-            # Check if the device has already been configured
-            await self.async_set_unique_id(unique_id)
-            self._abort_if_unique_id_configured()
+        # Check if the device has already been configured
+        await self.async_set_unique_id(unique_id)
+        self._abort_if_unique_id_configured()
 
-            # Automatically create the entry from the discovered device
+        # Store discovery data in context
+        self.context["discovery"] = {
+            "host": host,
+            "unique_id": unique_id,
+        }
+
+        # Ask user for confirmation
+        return await self.async_step_confirm()
+
+    async def async_step_confirm(self, user_input=None) -> FlowResult:
+        """Ask user to confirm adding the discovered device."""
+        discovery = self.context["discovery"]
+
+        if user_input is not None:
+            # Create the entry upon confirmation
             return self.async_create_entry(
-                title=f"Duco Air ({host})",
+                title=f"Duco Air ({discovery['host']})",
                 data={
-                    "base_url": f"http://{host}",
-                    "unique_id": unique_id,
+                    "base_url": f"http://{discovery['host']}",
+                    "unique_id": discovery["unique_id"],
                 },
             )
+
+        # Show confirmation form to the user
+        return self.async_show_form(
+            step_id="confirm",
+            description_placeholders={
+                "host": discovery["host"],
+                "unique_id": discovery["unique_id"],
+            },
+        )
 
     @staticmethod
     @callback
