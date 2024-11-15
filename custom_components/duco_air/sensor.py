@@ -9,6 +9,7 @@ from homeassistant.components.sensor import (
     SensorEntityDescription,
     SensorDeviceClass,
     SensorStateClass,
+    UnitOfTemperature
 )
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
@@ -210,7 +211,7 @@ NODE_SENSORS: dict[str, list[DucoboxNodeSensorEntityDescription]] = {
         DucoboxNodeSensorEntityDescription(
             key='Temp',
             name='Temperature',
-            native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+            native_unit_of_measurement=CELSIUS,
             device_class=SensorDeviceClass.TEMPERATURE,
             value_fn=lambda data: _process_node_temperature(data.get('Temp')),
             sensor_key='Temp',
