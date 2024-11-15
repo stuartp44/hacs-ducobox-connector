@@ -1,6 +1,6 @@
 {
   "domain": "duco_air",
-  "name": "Duco Air",
+  "name": "DUCO Ventilation & Sun Control",
   "version": "1.0.0",
   "documentation": "https://github.com/Sikerdebaard/hacs-ducobox-connector",
   "dependencies": [],
