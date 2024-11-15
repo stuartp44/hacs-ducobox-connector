@@ -47,133 +47,133 @@ class DucoboxNodeSensorEntityDescription(SensorEntityDescription):
 
 
 SENSORS: tuple[DucoboxSensorEntityDescription, ...] = (
-    # Temperature sensors
-    DucoboxSensorEntityDescription(
-        key="TempOda",
-        name="Outdoor Temperature",
-        native_unit_of_measurement=TEMP_CELSIUS,
-        state_class=SensorStateClass.MEASUREMENT,
-        device_class=SensorDeviceClass.TEMPERATURE,
-        value_fn=lambda data: _process_temperature(
-            data.get('Ventilation', {}).get('Sensor', {}).get('TempOda', {}).get('Val')
-        ),
-    ),
-    DucoboxSensorEntityDescription(
-        key="TempSup",
-        name="Supply Temperature",
-        native_unit_of_measurement=TEMP_CELSIUS,
-        state_class=SensorStateClass.MEASUREMENT,
-        device_class=SensorDeviceClass.TEMPERATURE,
-        value_fn=lambda data: _process_temperature(
-            data.get('Ventilation', {}).get('Sensor', {}).get('TempSup', {}).get('Val')
-        ),
-    ),
-    DucoboxSensorEntityDescription(
-        key="TempEta",
-        name="Exhaust Temperature",
-        native_unit_of_measurement=TEMP_CELSIUS,
-        state_class=SensorStateClass.MEASUREMENT,
-        device_class=SensorDeviceClass.TEMPERATURE,
-        value_fn=lambda data: _process_temperature(
-            data.get('Ventilation', {}).get('Sensor', {}).get('TempEta', {}).get('Val')
-        ),
-    ),
-    DucoboxSensorEntityDescription(
-        key="TempEha",
-        name="Extract Temperature",
-        native_unit_of_measurement=TEMP_CELSIUS,
-        state_class=SensorStateClass.MEASUREMENT,
-        device_class=SensorDeviceClass.TEMPERATURE,
-        value_fn=lambda data: _process_temperature(
-            data.get('Ventilation', {}).get('Sensor', {}).get('TempEha', {}).get('Val')
-        ),
-    ),
-    # Fan speed sensors
-    DucoboxSensorEntityDescription(
-        key="SpeedSup",
-        name="Supply Fan Speed",
-        native_unit_of_measurement="RPM",
-        state_class=SensorStateClass.MEASUREMENT,
-        device_class=SensorDeviceClass.SPEED,
-        value_fn=lambda data: _process_speed(
-            data.get('Ventilation', {}).get('Fan', {}).get('SpeedSup', {}).get('Val')
-        ),
-    ),
-    DucoboxSensorEntityDescription(
-        key="SpeedEha",
-        name="Exhaust Fan Speed",
-        native_unit_of_measurement="RPM",
-        state_class=SensorStateClass.MEASUREMENT,
-        device_class=SensorDeviceClass.SPEED,
-        value_fn=lambda data: _process_speed(
-            data.get('Ventilation', {}).get('Fan', {}).get('SpeedEha', {}).get('Val')
-        ),
-    ),
-    # Pressure sensors
-    DucoboxSensorEntityDescription(
-        key="PressSup",
-        name="Supply Pressure",
-        native_unit_of_measurement=UnitOfPressure.PA,
-        state_class=SensorStateClass.MEASUREMENT,
-        device_class=SensorDeviceClass.PRESSURE,
-        value_fn=lambda data: _process_pressure(
-            data.get('Ventilation', {}).get('Fan', {}).get('PressSup', {}).get('Val')
-        ),
-    ),
-    DucoboxSensorEntityDescription(
-        key="PressEha",
-        name="Exhaust Pressure",
-        native_unit_of_measurement=UnitOfPressure.PA,
-        state_class=SensorStateClass.MEASUREMENT,
-        device_class=SensorDeviceClass.PRESSURE,
-        value_fn=lambda data: _process_pressure(
-            data.get('Ventilation', {}).get('Fan', {}).get('PressEha', {}).get('Val')
-        ),
-    ),
-    # Wi-Fi signal strength
-    DucoboxSensorEntityDescription(
-        key="RssiWifi",
-        name="Wi-Fi Signal Strength",
-        native_unit_of_measurement="dBm",
-        state_class=SensorStateClass.MEASUREMENT,
-        device_class=SensorDeviceClass.SIGNAL_STRENGTH,
-        value_fn=lambda data: _process_rssi(
-            data.get('General', {}).get('Lan', {}).get('RssiWifi', {}).get('Val')
-        ),
-    ),
-    # Device uptime
-    DucoboxSensorEntityDescription(
-        key="UpTime",
-        name="Device Uptime",
-        native_unit_of_measurement=UnitOfTime.SECONDS,
-        state_class=SensorStateClass.TOTAL_INCREASING,
-        device_class=SensorDeviceClass.DURATION,
-        value_fn=lambda data: _process_uptime(
-            data.get('General', {}).get('Board', {}).get('UpTime', {}).get('Val')
-        ),
-    ),
-    # Filter time remaining
-    DucoboxSensorEntityDescription(
-        key="TimeFilterRemain",
-        name="Filter Time Remaining",
-        native_unit_of_measurement=UnitOfTime.MINUTES,  # Assuming the value is in minutes
-        state_class=SensorStateClass.MEASUREMENT,
-        device_class=SensorDeviceClass.DURATION,
-        value_fn=lambda data: _process_timefilterremain(
-            data.get('HeatRecovery', {}).get('General', {}).get('TimeFilterRemain', {}).get('Val')
-        ),
-    ),
-    # Bypass position
-    DucoboxSensorEntityDescription(
-        key="BypassPos",
-        name="Bypass Position",
-        native_unit_of_measurement=PERCENTAGE,
-        state_class=SensorStateClass.MEASUREMENT,
-        value_fn=lambda data: _process_bypass_position(
-            data.get('HeatRecovery', {}).get('Bypass', {}).get('Pos', {}).get('Val')
-        ),
-    ),
-    # Add additional sensors here if needed
+    # # Temperature sensors
+    # DucoboxSensorEntityDescription(
+    #     key="TempOda",
+    #     name="Outdoor Temperature",
+    #     native_unit_of_measurement=TEMP_CELSIUS,
+    #     state_class=SensorStateClass.MEASUREMENT,
+    #     device_class=SensorDeviceClass.TEMPERATURE,
+    #     value_fn=lambda data: _process_temperature(
+    #         data.get('Ventilation', {}).get('Sensor', {}).get('TempOda', {}).get('Val')
+    #     ),
+    # ),
+    # DucoboxSensorEntityDescription(
+    #     key="TempSup",
+    #     name="Supply Temperature",
+    #     native_unit_of_measurement=TEMP_CELSIUS,
+    #     state_class=SensorStateClass.MEASUREMENT,
+    #     device_class=SensorDeviceClass.TEMPERATURE,
+    #     value_fn=lambda data: _process_temperature(
+    #         data.get('Ventilation', {}).get('Sensor', {}).get('TempSup', {}).get('Val')
+    #     ),
+    # ),
+    # DucoboxSensorEntityDescription(
+    #     key="TempEta",
+    #     name="Exhaust Temperature",
+    #     native_unit_of_measurement=TEMP_CELSIUS,
+    #     state_class=SensorStateClass.MEASUREMENT,
+    #     device_class=SensorDeviceClass.TEMPERATURE,
+    #     value_fn=lambda data: _process_temperature(
+    #         data.get('Ventilation', {}).get('Sensor', {}).get('TempEta', {}).get('Val')
+    #     ),
+    # ),
+    # DucoboxSensorEntityDescription(
+    #     key="TempEha",
+    #     name="Extract Temperature",
+    #     native_unit_of_measurement=TEMP_CELSIUS,
+    #     state_class=SensorStateClass.MEASUREMENT,
+    #     device_class=SensorDeviceClass.TEMPERATURE,
+    #     value_fn=lambda data: _process_temperature(
+    #         data.get('Ventilation', {}).get('Sensor', {}).get('TempEha', {}).get('Val')
+    #     ),
+    # ),
+    # # Fan speed sensors
+    # DucoboxSensorEntityDescription(
+    #     key="SpeedSup",
+    #     name="Supply Fan Speed",
+    #     native_unit_of_measurement="RPM",
+    #     state_class=SensorStateClass.MEASUREMENT,
+    #     device_class=SensorDeviceClass.SPEED,
+    #     value_fn=lambda data: _process_speed(
+    #         data.get('Ventilation', {}).get('Fan', {}).get('SpeedSup', {}).get('Val')
+    #     ),
+    # ),
+    # DucoboxSensorEntityDescription(
+    #     key="SpeedEha",
+    #     name="Exhaust Fan Speed",
+    #     native_unit_of_measurement="RPM",
+    #     state_class=SensorStateClass.MEASUREMENT,
+    #     device_class=SensorDeviceClass.SPEED,
+    #     value_fn=lambda data: _process_speed(
+    #         data.get('Ventilation', {}).get('Fan', {}).get('SpeedEha', {}).get('Val')
+    #     ),
+    # ),
+    # # Pressure sensors
+    # DucoboxSensorEntityDescription(
+    #     key="PressSup",
+    #     name="Supply Pressure",
+    #     native_unit_of_measurement=UnitOfPressure.PA,
+    #     state_class=SensorStateClass.MEASUREMENT,
+    #     device_class=SensorDeviceClass.PRESSURE,
+    #     value_fn=lambda data: _process_pressure(
+    #         data.get('Ventilation', {}).get('Fan', {}).get('PressSup', {}).get('Val')
+    #     ),
+    # ),
+    # DucoboxSensorEntityDescription(
+    #     key="PressEha",
+    #     name="Exhaust Pressure",
+    #     native_unit_of_measurement=UnitOfPressure.PA,
+    #     state_class=SensorStateClass.MEASUREMENT,
+    #     device_class=SensorDeviceClass.PRESSURE,
+    #     value_fn=lambda data: _process_pressure(
+    #         data.get('Ventilation', {}).get('Fan', {}).get('PressEha', {}).get('Val')
+    #     ),
+    # ),
+    # # Wi-Fi signal strength
+    # DucoboxSensorEntityDescription(
+    #     key="RssiWifi",
+    #     name="Wi-Fi Signal Strength",
+    #     native_unit_of_measurement="dBm",
+    #     state_class=SensorStateClass.MEASUREMENT,
+    #     device_class=SensorDeviceClass.SIGNAL_STRENGTH,
+    #     value_fn=lambda data: _process_rssi(
+    #         data.get('General', {}).get('Lan', {}).get('RssiWifi', {}).get('Val')
+    #     ),
+    # ),
+    # # Device uptime
+    # DucoboxSensorEntityDescription(
+    #     key="UpTime",
+    #     name="Device Uptime",
+    #     native_unit_of_measurement=UnitOfTime.SECONDS,
+    #     state_class=SensorStateClass.TOTAL_INCREASING,
+    #     device_class=SensorDeviceClass.DURATION,
+    #     value_fn=lambda data: _process_uptime(
+    #         data.get('General', {}).get('Board', {}).get('UpTime', {}).get('Val')
+    #     ),
+    # ),
+    # # Filter time remaining
+    # DucoboxSensorEntityDescription(
+    #     key="TimeFilterRemain",
+    #     name="Filter Time Remaining",
+    #     native_unit_of_measurement=UnitOfTime.MINUTES,  # Assuming the value is in minutes
+    #     state_class=SensorStateClass.MEASUREMENT,
+    #     device_class=SensorDeviceClass.DURATION,
+    #     value_fn=lambda data: _process_timefilterremain(
+    #         data.get('HeatRecovery', {}).get('General', {}).get('TimeFilterRemain', {}).get('Val')
+    #     ),
+    # ),
+    # # Bypass position
+    # DucoboxSensorEntityDescription(
+    #     key="BypassPos",
+    #     name="Bypass Position",
+    #     native_unit_of_measurement=PERCENTAGE,
+    #     state_class=SensorStateClass.MEASUREMENT,
+    #     value_fn=lambda data: _process_bypass_position(
+    #         data.get('HeatRecovery', {}).get('Bypass', {}).get('Pos', {}).get('Val')
+    #     ),
+    # ),
+    # # Add additional sensors here if needed
 )
 
 # Define sensors for nodes based on their type
@@ -182,7 +182,7 @@ NODE_SENSORS: dict[str, list[DucoboxNodeSensorEntityDescription]] = {
         DucoboxNodeSensorEntityDescription(
             key='Temp',
             name='Temperature',
-            native_unit_of_measurement=TEMP_CELSIUS,
+            native_unit_of_measurement=UnitOfTemperature.CELSIUS,
             device_class=SensorDeviceClass.TEMPERATURE,
             value_fn=lambda data: _process_node_temperature(data.get('Temp')),
             sensor_key='Temp',
@@ -210,7 +210,7 @@ NODE_SENSORS: dict[str, list[DucoboxNodeSensorEntityDescription]] = {
         DucoboxNodeSensorEntityDescription(
             key='Temp',
             name='Temperature',
-            native_unit_of_measurement=TEMP_CELSIUS,
+            native_unit_of_measurement=UnitOfTemperature.CELSIUS,
             device_class=SensorDeviceClass.TEMPERATURE,
             value_fn=lambda data: _process_node_temperature(data.get('Temp')),
             sensor_key='Temp',
@@ -238,7 +238,7 @@ NODE_SENSORS: dict[str, list[DucoboxNodeSensorEntityDescription]] = {
         DucoboxNodeSensorEntityDescription(
             key='Temp',
             name='Temperature',
-            native_unit_of_measurement=TEMP_CELSIUS,
+            native_unit_of_measurement=UnitOfTemperature.CELSIUS,
             device_class=SensorDeviceClass.TEMPERATURE,
             value_fn=lambda data: _process_node_temperature(data.get('Temp')),
             sensor_key='Temp',
